@@ -1,0 +1,112 @@
+.setting-container {
+  width: 60%;
+  height: 72%;
+  background-color: #7d6fd3;
+  position: absolute;
+  top: 6rem;
+  list-style-type: none;
+  margin: 0;
+  overflow-y: scroll;
+}
+.setting-item {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  border-bottom: 1px solid;
+}
+.logout {
+  font-weight: 600;
+}
+.form-submit {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.form-submit input {
+  height: 25px;
+  padding-left: 10px;
+  border: none;
+}
+.input:focus-visible {
+  outline: none;
+}
+.success {
+  background-color: lime;
+}
+.failed {
+  background-color: #ff4646;
+}
+.avatar-main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  height: 50%;
+  overflow: auto;
+}
+
+.avatar-main::-webkit-scrollbar-track {
+  background-color: #ff4646;
+}
+.avatar {
+  width: 25%;
+
+  margin: 5px;
+  box-sizing: border-box;
+  height: 180px;
+  object-fit: cover;
+}
+.active {
+  border: 3px solid #eee;
+}
+.form-add_avatar {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-right: 10px;
+  color: white;
+}
+.form-add_avatar label {
+  cursor: pointer;
+}
+.form-add_avatar button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+.item-avatar {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+.form-password {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-right: 1em;
+}
+.form-password_input {
+  height: 3em;
+  margin: 10px 0;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.form-password_input:focus-visible {
+  outline: none;
+}
+.form-password_btn {
+  height: 2.5em;
+  width: 9em;
+}
+.input-error {
+  border: 1px solid red;
+}
+@media only screen and (max-width: 600px) {
+}

@@ -1,0 +1,142 @@
+.login-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(52, 70, 78);
+}
+
+.form-login {
+  width: 80%;
+}
+.username,
+.password,
+.input-container {
+  width: 100%;
+  border-bottom: 2px solid rgb(238, 239, 82);
+  position: relative;
+  margin-bottom: 20px;
+}
+.username-title,
+.password-title,
+.label {
+  position: absolute;
+  top: 0px;
+  font-size: 20px;
+  font-weight: 400;
+  color: white;
+  translate: 10px 10px;
+  transition: translate 500ms, scale 500ms;
+}
+.username-input,
+.password-input,
+.input,
+.input-email {
+  width: 100%;
+  height: 35px;
+  border: none;
+  font-size: 18px;
+  background-color: rgb(52, 70, 78);
+  color: white;
+}
+
+.username-input:focus + .username-title,
+.password-input:focus + .password-title,
+.input:focus + .label,
+.input-email:focus + .label {
+  translate: 10px -15px;
+  scale: 0.9;
+}
+
+.username-input:valid ~ .username-title,
+.password-input:valid ~ .password-title,
+.input:valid ~ .label,
+.input-email:not(:invalid) ~ .label {
+  translate: 10px -15px;
+  scale: 0.9;
+}
+.username-input:focus-visible,
+.password-input:focus-visible,
+.input-email:focus-visible,
+.input:focus-visible {
+  outline: none;
+}
+.btn-submit {
+  width: 100%;
+  height: 3rem;
+  border-radius: 1.5rem;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: rgb(238, 239, 82);
+}
+.btn-submit:hover {
+  box-shadow: rgb(238, 239, 82) 0px 9px 15px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.reqRegister {
+  background-color: rgb(52, 70, 78);
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-style: italic;
+}
+.upload-avatar {
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgb(238, 239, 82);
+}
+.upload-avatar input {
+  display: none;
+}
+.upload-avatar label {
+  margin-left: 10px;
+  font-size: 18px;
+  color: white;
+}
+.error {
+  color: #ff4646;
+}
+.input-otp {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.input-otp input:focus-visible {
+  outline: none;
+}
+.input-otp input::-webkit-outer-spin-button,
+.input-otp input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-otp input {
+  padding: 5px;
+  width: 3.6em;
+}
+.input-otp {
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.forgot {
+  cursor: pointer;
+  color: white;
+}
+@media only screen and (min-width: 600px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-container {
+    width: 38rem;
+    height: 100vh;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .login-container {
+    width: 100%;
+    height: 100vh;
+  }
+}
