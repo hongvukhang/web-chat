@@ -10,6 +10,8 @@ import classes from "./ForgotPasswordBackup.module.css";
 
 import Alerts from "../../portal/alert/Alert";
 
+import { useDispatch } from "react-redux";
+import { display } from "../../../redux/showAlertSlice";
 // export default function ForgotPassword() {
 //   const navigate = useNavigate();
 //   const [emailUser, setEmailUser] = useState("");
@@ -208,15 +210,10 @@ import Alerts from "../../portal/alert/Alert";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
-  const defaultAlert = {
-    status: false,
-    msg: "",
-    severity: "",
-    actions: () => {},
-    close: () => closeHandler(),
-  };
+  const dispatch = useDispatch();
+
   const [changePassword, setChangePassword] = useState(false);
-  const [alert, setAlert] = useState(defaultAlert);
+
   const [email, setEmail] = useState("exam@gmail.com");
 
   const userNameRef = useRef();
@@ -224,9 +221,6 @@ export default function ForgotPassword() {
   const passwordComfirmRef = useRef();
   const otpRef = useRef();
 
-  function closeHandler() {
-    setAlert(defaultAlert);
-  }
   //format email
   const formatEmail = (email) => {
     const a = email.split("@");
@@ -245,12 +239,13 @@ export default function ForgotPassword() {
     e.preventDefault();
     const userName = userNameRef.current.value;
     if (!userName) {
-      setAlert({
-        ...defaultAlert,
-        status: true,
-        msg: "UserName is empty!",
-        severity: "error",
-      });
+      dispatch(
+        display({
+          message: "UserName is empty!",
+          severity: "error",
+          close: { title: "close" },
+        })
+      );
       return;
     }
 
@@ -261,58 +256,67 @@ export default function ForgotPassword() {
         setChangePassword(true);
       })
       .catch((err) => {
-        setAlert({
-          ...defaultAlert,
-          status: true,
-          msg: err?.response?.data?.msg,
-          severity: "error",
-        });
+        dispatch(
+          display({
+            message: err?.response?.data?.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
       });
   };
   const validatePassword = (password, comfirmPassword, otp) => {
     if (!password) {
-      setAlert({
-        ...alert,
-        status: true,
-        severity: "error",
-        msg: "Password is empty!",
-      });
+      dispatch(
+        display({
+          severity: "error",
+          message: "Password is empty!",
+          close: { title: "close" },
+        })
+      );
       return false;
     }
     if (!comfirmPassword) {
-      setAlert({
-        ...alert,
-        status: true,
-        severity: "error",
-        msg: "Comfirm password is empty!",
-      });
+      dispatch(
+        display({
+          severity: "error",
+          message: "Comfirm password is empty!",
+          close: { title: "close" },
+        })
+      );
       return false;
     }
     if (!otp) {
-      setAlert({
-        ...alert,
-        status: true,
-        severity: "error",
-        msg: "OTP is empty!",
-      });
+      dispatch(
+        display({
+          severity: "error",
+          message: "OTP is empty!",
+          close: { title: "close" },
+        })
+      );
+
       return false;
     }
     if (comfirmPassword !== password) {
-      setAlert({
-        ...alert,
-        status: true,
-        severity: "error",
-        msg: "Confirm password and password are not the same",
-      });
+      dispatch(
+        display({
+          severity: "error",
+          message: "Confirm password and password are not the same",
+          close: { title: "close" },
+        })
+      );
+
       return false;
     }
     if (password.length < 8) {
-      setAlert({
-        ...alert,
-        status: true,
-        severity: "error",
-        msg: "Password length is less than eight",
-      });
+      dispatch(
+        display({
+          severity: "error",
+          message: "Password length is less than eight",
+          close: { title: "close" },
+        })
+      );
+
       return false;
     }
     return true;
@@ -332,34 +336,27 @@ export default function ForgotPassword() {
         email: email,
       })
       .then((res) => {
-        setAlert({
-          status: true,
-          close: () => {
-            navigate("/login");
-          },
-          severity: "success",
-          msg: res.data.msg,
-        });
+        dispatch(
+          display({
+            severity: "success",
+            message: res.data.msg,
+            close: { title: "navigate", payload: "/login" },
+          })
+        );
       })
       .catch((err) => {
-        setAlert({
-          status: true,
-          severity: "error",
-          msg: err?.response?.data?.msg,
-        });
+        dispatch(
+          display({
+            severity: "error",
+            message: err?.response?.data?.msg,
+            close: { title: "navigate", payload: "/login" },
+          })
+        );
       });
   };
 
   return (
     <div className={classes.container}>
-      {alert.status && (
-        <Alerts
-          severity={alert.severity}
-          msg={alert.msg}
-          close={alert.close}
-          actionHandler={alert.actions}
-        />
-      )}
       <main className={classes.content}>
         {changePassword && (
           <IoIosArrowBack onClick={() => setChangePassword(false)} />

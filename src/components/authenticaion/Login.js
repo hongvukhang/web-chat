@@ -3,13 +3,19 @@ import axios from "axios";
 import Authentication from "./Authentication";
 import classes from "./authentication.module.css";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import useNavigateCustom from "../../hooks/useNavigateCustom";
+import { useDispatch } from "react-redux";
+import { display } from "../../redux/showAlertSlice";
+
 export default function Login() {
   const [cookies, setCookie] = useCookies(["auth"]);
-  const navigate = useNavigate();
+  const navigate = useNavigateCustom();
   const [dataLogin, setDataLogin] = useState({ username: "", password: "" });
   const [err, setErr] = useState("");
   const [className, setClassName] = useState();
+  const dispatch = useDispatch();
+
   const changeData = (e) => {
     if (e.target.type === "text") {
       setDataLogin((dataLogin) => ({ ...dataLogin, username: e.target.value }));
@@ -34,10 +40,18 @@ export default function Login() {
       })
       .then(() => {
         navigate("/");
+        // useNavigateCustom("/");
       })
       .catch((err) => {
+        dispatch(
+          display({
+            message: err?.response?.data?.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
         setClassName(classes["label"]);
-        setErr(err?.response?.data?.msg + `+${Math.random()}`);
+        setErr(err?.response?.data?.title + `+${Math.random()}`);
       });
   };
   return (

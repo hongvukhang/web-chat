@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Authentication from "./Authentication";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { display } from "../../redux/showAlertSlice";
 export default function Register() {
   const naviagte = useNavigate();
   const [dataLogin, setDataLogin] = useState({
@@ -14,7 +16,7 @@ export default function Register() {
   const [isEmail, setIsEmail] = useState(false);
   const [avatar, setAvatar] = useState([]);
   const [err, setErr] = useState("");
-
+  const dispatch = useDispatch();
   const changeData = (e) => {
     if (e.target.type === "text") {
       setDataLogin((dataLogin) => ({
@@ -80,17 +82,32 @@ export default function Register() {
       axios
         .post("/register", form)
         .then((result) => {
-          console.log(result);
           if (result.status === 201) {
-            naviagte("/login");
+            // naviagte("/login");
+            dispatch(
+              display({
+                message: "The account has been successfully registered",
+                severity: "success",
+                close: {
+                  title: "navigate",
+                  payload: "/login",
+                },
+              })
+            );
           }
         })
         .catch((err) => {
-          console.log(err);
+          dispatch(
+            display({
+              message: err?.response?.data?.msg,
+              severity: "error",
+              close: { title: "close" },
+            })
+          );
           if (err?.response?.status === 480) {
-            setErr(err?.response?.data?.msg);
+            setErr(err?.response?.data?.title);
           } else {
-            setErr(err?.response?.data?.msg + `+${Math.random()}`);
+            setErr(err?.response?.data?.title + `+${Math.random()}`);
           }
         });
     } else {
@@ -100,9 +117,23 @@ export default function Register() {
 
   const sendOTPHandler = () => {
     if (!dataLogin.email) return;
-    axios.post("/email/send-otp", { email: dataLogin.email }).then((res) => {
-      setIsEmail(true);
-    });
+    axios
+      .post("/email/send-otp-register", {
+        email: dataLogin.email,
+        userName: dataLogin.username,
+      })
+      .then((res) => {
+        setIsEmail(true);
+      })
+      .catch((err) => {
+        dispatch(
+          display({
+            message: err?.response?.data?.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
+      });
     setTimeout(() => {
       setIsEmail(false);
     }, 120000);

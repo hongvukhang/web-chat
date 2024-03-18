@@ -4,6 +4,10 @@ import classes from "./AddAvatar.module.css";
 import { IoIosCloseCircle } from "react-icons/io";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+
+import { useDispatch } from "react-redux";
+import { display } from "../../../redux/showAlertSlice";
+
 export default function AddAvatar({ handler, getAvatar }) {
   const [cookie, setCookie] = useCookies(["avatar"]);
   const [avatar, setAvatar] = useState("");
@@ -11,10 +15,8 @@ export default function AddAvatar({ handler, getAvatar }) {
     current: "",
     list: [],
   });
-  const [resAvatar, setResAvatar] = useState({
-    status: false,
-    msg: <span></span>,
-  });
+
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("/get-avatar")
@@ -45,18 +47,24 @@ export default function AddAvatar({ handler, getAvatar }) {
       .then((res) => {
         setAvatar(res.data.avatar);
         setAvatarData({ ...avatarData, list: res.data.listAvatar });
-        setResAvatar({
-          status: true,
-          msg: <span style={{ color: "#02ff00" }}>Success</span>,
-        });
+        dispatch(
+          display({
+            message: res.data.msg,
+            severity: "success",
+            close: { title: "close" },
+          })
+        );
         setCookie("avatar", res.data.avatar);
         getAvatar(res.data.avatar);
       })
       .catch((err) => {
-        setResAvatar({
-          status: true,
-          msg: <span style={{ color: "#e10000" }}>Failure</span>,
-        });
+        dispatch(
+          display({
+            message: err?.response?.data.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
       });
   };
   return ReactDOM.createPortal(
@@ -93,12 +101,8 @@ export default function AddAvatar({ handler, getAvatar }) {
               </li>
             );
           })}
-          {/* <li>
-            <Loading />
-            <div></div>
-          </li> */}
         </ul>
-        {resAvatar.status && resAvatar.msg}
+
         <button
           onClick={submitHandler}
           className={`${classes.btn} ${classes.submit}`}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import useNavigateCustom from "../../hooks/useNavigateCustom";
 import Input from "./Input";
 // import Layout from "./Layout";
 import classes from "./authentication.module.css";
@@ -25,7 +26,7 @@ export default function Authentication({
   sendOTPHandler,
   isEmail,
 }) {
-  const navigate = useNavigate();
+  const navigate = useNavigateCustom();
   const location = useLocation();
 
   return (

@@ -1,47 +1,53 @@
 import { useRef, useState } from "react";
 import classes from "../../Setting.module.css";
 import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { display } from "../../../../redux/showAlertSlice";
 import axios from "axios";
 export default function ChangeName() {
   const [cookies, setCookie] = useCookies(["name"]);
   const nameRef = useRef();
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
+
   const changeNameHandler = () => {
     const newName = nameRef.current.value;
     axios
       .post("/change-new-name", { newName: newName })
       .then((res) => {
         if (res.status === 200) {
-          setSuccess(true);
           setCookie("name", newName);
+          dispatch(
+            display({
+              message: res.data.msg,
+              severity: "success",
+              close: { title: "close" },
+            })
+          );
         }
       })
       .catch((err) => {
-        setError(true);
+        dispatch(
+          display({
+            message: err?.response?.data.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
       });
   };
   return (
     <>
-      <p style={error.comfirm ? { color: "#ff0000b3" } : {}}>Name</p>
+      <p>Name</p>
       <input
-        onFocus={() => setError(false)}
         ref={nameRef}
         className={classes["input"]}
         type="text"
         placeholder="Type your name"
         defaultValue={cookies.name}
       />
-      {!success && (
-        <button className={classes["btn"]} onClick={changeNameHandler}>
-          Submit Name
-        </button>
-      )}
-      {success && (
-        <button style={{ backgroundColor: "green" }} className={classes["btn"]}>
-          Change name success
-        </button>
-      )}
+      <button className={classes["btn"]} onClick={changeNameHandler}>
+        Submit Name
+      </button>
     </>
   );
 }
