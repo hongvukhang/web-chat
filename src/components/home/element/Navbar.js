@@ -6,12 +6,14 @@ import { useCookies } from "react-cookie";
 
 import { IoIosSearch } from "react-icons/io";
 import { CiChat1, CiSettings, CiLogout } from "react-icons/ci";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUserFriends } from "react-icons/fa";
 import useNavigateCustom from "../../../hooks/useNavigateCustom";
 import { useDispatch } from "react-redux";
 import { notDisplay } from "../../../redux/showAlertSlice";
+import { useNavigate } from "react-router-dom";
 export default function Navbar({ socket }) {
   const navigate = useNavigateCustom();
+  const navigateDefault = useNavigate();
   const dispatch = useDispatch();
   const [toggleSearch, setToggleSearch] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
@@ -38,7 +40,11 @@ export default function Navbar({ socket }) {
         <div></div>
         <div className={classes["main-navbar"]}>
           <FaHome onClick={() => navigate("/")} />
-          {/* <CiChat1 /> */}
+          <FaUserFriends
+            onClick={() => {
+              navigate("/friends", { state: { key: "Friends" } });
+            }}
+          />
           <IoIosSearch
             onClick={() => {
               dispatch(notDisplay());
@@ -49,7 +55,9 @@ export default function Navbar({ socket }) {
         </div>
         <CiLogout onClick={logoutHandler} />
       </nav>
-      {toggleSearch && <Search closeHandler={closeSearchHandler} />}
+      {toggleSearch && (
+        <Search closeHandler={closeSearchHandler} socket={socket} />
+      )}
     </>
   );
 }

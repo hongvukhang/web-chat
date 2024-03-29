@@ -4,12 +4,14 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./element/Navbar";
 import ListChat from "./element/ListChat";
 import { useCookies } from "react-cookie";
+
 export function LayoutHome({ children, reload, socket }) {
   const location = useLocation();
 
   return (
     <div className={classes["home-container"]}>
       <Navbar socket={socket} />
+
       <main className={classes["chat-container"]}>
         <ListChat
           className={location.pathname !== "/" ? "none" : ""}

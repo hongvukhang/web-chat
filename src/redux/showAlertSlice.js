@@ -14,7 +14,7 @@ const alertSlice = createSlice({
       state.status = true;
       state.message = action.payload.message;
       state.severity = action.payload.severity;
-      state.actions = action.payload.action;
+      state.actions = action.payload.actions;
       state.close = action.payload.close;
     },
     notDisplay: (state) => {

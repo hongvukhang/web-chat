@@ -1,0 +1,77 @@
+.lf-container {
+  flex: 1;
+  background-color: #2f2a30f5;
+  width: 35%;
+  color: #ffffffd9;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+.lf-container > h1 {
+  font-style: italic;
+}
+.lf-container > input {
+  height: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffffff52;
+  color: white;
+}
+.lf-container > input::placeholder {
+  color: white;
+}
+.lf-filter {
+  margin: 10px -2px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn {
+  flex: 1 1;
+  height: 35px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #ffffff52;
+  color: white;
+  border: none;
+  margin: 0 2px;
+  box-sizing: border-box;
+}
+
+.btn-active {
+  background-color: #0000002e;
+  text-decoration: underline;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 0 -2px;
+}
+.btn-container button {
+  flex: 1;
+  border: none;
+  margin: 0 2px;
+  border-radius: 2px;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+.btn-container button:first-child {
+  background-color: green;
+}
+.btn-container button:last-child {
+  background-color: #ff0000ad;
+}
+.item {
+  align-items: center;
+}
+.delete {
+  width: 2rem;
+  height: 2rem;
+}

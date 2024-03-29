@@ -17,18 +17,21 @@ import Setting from "./components/setting/Setting";
 import Login from "./components/authenticaion/Login";
 import Register from "./components/authenticaion/Register";
 import ForgotPassword from "./components/authenticaion/forgotPassword/ForgotPassword";
+import Friends from "./components/friends/Friends";
 
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { display } from "./redux/showAlertSlice";
 function App() {
   const [cookies] = useCookies(["auth"]);
 
   const alert = useSelector((state) => state.show_alert);
+  const dispatch = useDispatch();
 
   axios.defaults.baseURL = "http://localhost:5000/";
   axios.defaults.headers.common["Authorization"] = `Bearer ${cookies.auth}`;
   const [socketIO, setSocketIO] = useState();
   const [message, setMessage] = useState();
+  const [notify, setNotify] = useState();
   useEffect(() => {
     if (cookies.userName) {
       const socket = io("http://localhost:5000", {
@@ -43,7 +46,21 @@ function App() {
       socket.on("msg-image", (arg) => {
         setMessage(arg);
       });
-      socket.on("disconnectThatSoc", function () {
+      socket.on("notify", (arg) => {
+        console.log(arg);
+        dispatch(
+          display({
+            severity: "info",
+            message: arg.msg,
+            close: { title: "close" },
+            actions: {
+              pathname: "/friends",
+              options: { state: { key: "Request" } },
+            },
+          })
+        );
+      });
+      socket.on("disconnect", function () {
         socket.disconnect();
       });
     }
@@ -78,6 +95,14 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/friends"
+            element={<Friends socket={socketIO} notify={notify} />}
+          />
+          {/* <Route
+            path="/friends/:filter"
+            element={<Friends socket={socketIO} notify={notify} />}
+          /> */}
         </Routes>
       </BrowserRouter>
     </>

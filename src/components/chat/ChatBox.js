@@ -18,7 +18,8 @@ import Loading from "./element/Loading";
 
 import Navbar from "../home/element/Navbar";
 import ListChat from "../home/element/ListChat";
-
+import { useDispatch } from "react-redux";
+import { display } from "../../redux/showAlertSlice";
 export default function ChatBox({ socket, message }) {
   const params = useParams();
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function ChatBox({ socket, message }) {
   const [isLoading, setIsLoading] = useState(false);
   const [reloading, setReloading] = useState({ msg: "reloading" });
   const msgRef = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     msgRef.current.value = "";
   }, [params]);
@@ -53,8 +54,15 @@ export default function ChatBox({ socket, message }) {
 
         setMsgs(res.data.messages);
       })
-      .catch(() => {
-        navigate("/login");
+      .catch((error) => {
+        dispatch(
+          display({
+            message: error?.response.data.msg,
+            severity: "error",
+            close: { title: "close" },
+          })
+        );
+        navigate("/");
       });
   };
 

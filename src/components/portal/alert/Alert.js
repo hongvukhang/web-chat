@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 
 import { useDispatch } from "react-redux";
 import { notDisplay } from "../../../redux/showAlertSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function Alerts({ severity, msg, close, actionHandler }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,14 @@ export default function Alerts({ severity, msg, close, actionHandler }) {
         <Button color="inherit" size="small" onClick={closeHandler}>
           CANCEL
         </Button>
-        <Button color="inherit" size="small" onClick={actionHandler}>
+        <Button
+          color="inherit"
+          size="small"
+          onClick={() => {
+            closeHandler();
+            navigate(actionHandler.pathname, actionHandler.options);
+          }}
+        >
           OK
         </Button>
       </>

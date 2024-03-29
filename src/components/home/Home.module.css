@@ -18,6 +18,7 @@ body {
 }
 /* css navbar */
 .navbar {
+  flex: 1;
   width: 10%;
   max-width: 90px;
   height: 100%;
@@ -269,5 +270,14 @@ body {
   }
   .box-chat {
     width: 100%;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .navbar > div:first-child {
+    display: none;
+  }
+  .main-navbar {
+    flex: 1;
+    margin-right: 15px;
   }
 }

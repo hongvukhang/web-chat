@@ -7,8 +7,8 @@ export default function useNavigateCustom() {
 
   const naviagte = useNavigate();
 
-  return (path) => {
+  return (path, options) => {
     dispath(notDisplay());
-    naviagte(path);
+    naviagte(path, options);
   };
 }

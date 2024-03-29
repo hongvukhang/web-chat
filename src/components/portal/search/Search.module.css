@@ -66,14 +66,24 @@
   color: #ffffffd9;
   background-color: #2d3238ad;
   margin-bottom: 10px;
+  justify-content: space-between;
 }
-
+.item-search div {
+  display: flex;
+  align-items: center;
+}
 .item-search img {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
   margin-right: 20px;
   object-fit: cover;
+}
+.item-search svg {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  position: relative;
 }
 ::-webkit-scrollbar-track {
   background: #e1dede;
