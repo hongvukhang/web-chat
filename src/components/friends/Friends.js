@@ -148,7 +148,7 @@ export default function Friends({ socket }) {
             >
               Friends
             </button>
-            <button
+            {/* <button
               onClick={(e) => {
                 filterHandler(e);
                 // navigate(`/friends/${e.target.innerHTML}`);
@@ -160,7 +160,7 @@ export default function Friends({ socket }) {
               }
             >
               Waiting
-            </button>
+            </button> */}
             <button
               onClick={(e) => {
                 filterHandler(e);

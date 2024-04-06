@@ -242,6 +242,26 @@ body {
   border-radius: 15px;
   padding: 0px 5px;
 }
+.avatar-group {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+.avatar-group img {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  border: 2px solid white;
+  box-sizing: border-box;
+}
+.avatar-group img:first-child {
+  top: 0;
+  right: 0;
+}
+.avatar-group img:last-child {
+  bottom: 0;
+  left: 0;
+}
 @media only screen and (max-width: 800px) {
   .none {
     display: none;

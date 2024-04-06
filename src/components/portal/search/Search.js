@@ -26,7 +26,7 @@ export default function Search({ closeHandler, socket }) {
   };
 
   const sendMessage = (_id) => {
-    axios.get(`/chat/send-message/${_id}`).then((res) => {
+    axios.post(`/chat/send-message`, { userId: [_id] }).then((res) => {
       navigate(`/chat/${res.data}`);
       closeHandler();
     });

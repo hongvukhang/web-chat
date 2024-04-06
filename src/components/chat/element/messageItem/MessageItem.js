@@ -10,11 +10,21 @@ export default function MessageItem({ msg, container, tittle }) {
   const minute = createAt.getMinutes();
   const dispatch = useDispatch();
   const isShowImage = useSelector((state) => state.show_image);
-
   return (
     <>
+      {tittle === "receiver" && (
+        <span className={classes["name-receiver"]}>{msg.name}</span>
+      )}
       <div className={classes[container]}>
         <li className={classes[tittle]}>
+          {tittle === "receiver" && (
+            <img
+              src={msg.avatar}
+              alt="avatar"
+              className={classes["avatar-message"]}
+              style={{ height: "20px" }}
+            />
+          )}
           {msg.type === "image" && (
             <img
               onError={() => {

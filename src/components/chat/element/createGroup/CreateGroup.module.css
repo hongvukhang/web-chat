@@ -1,0 +1,78 @@
+.container {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.container svg {
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+}
+.btn {
+  height: 45px;
+  width: 135px;
+  align-self: center;
+  border: none;
+  background-color: #0000ffbf;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.list-friend {
+  flex: 1;
+  padding: 0;
+  list-style-type: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
+}
+.items {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #676464;
+  padding: 10px 5px;
+  border-radius: 15px;
+  color: white;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.info-user {
+  display: flex;
+  align-items: center;
+}
+.info-user img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.list-group {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.items-group {
+  background-color: #676464;
+  display: flex;
+  max-width: 200px;
+  flex: 1 0 150px;
+  overflow: hidden;
+  color: white;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 0 10px 10px 0;
+  border-radius: 15px;
+}
