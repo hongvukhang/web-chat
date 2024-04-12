@@ -52,12 +52,26 @@ export default function Register() {
 
   const validate = () => {
     if (dataLogin.username === "") return false;
-    if (dataLogin.password.length < 6) return false;
-    if (
-      dataLogin.confirmPassword.length < 6 ||
-      dataLogin.confirmPassword !== dataLogin.password
-    )
+    if (dataLogin.password.length < 8) {
+      dispatch(
+        display({
+          message: "The password must be longer than 8 characters",
+          severity: "error",
+          close: { title: "close" },
+        })
+      );
       return false;
+    }
+    if (dataLogin.confirmPassword !== dataLogin.password) {
+      dispatch(
+        display({
+          message: "The confirmation password does not match the password",
+          severity: "error",
+          close: { title: "close" },
+        })
+      );
+      return false;
+    }
     if (dataLogin.email === "") return false;
     if (dataLogin.otp === "") return false;
     return true;
@@ -67,6 +81,7 @@ export default function Register() {
     e.preventDefault();
 
     const isVal = validate();
+    console.log(isVal);
     if (isVal) {
       const form = new FormData();
       avatar.forEach((file) => {

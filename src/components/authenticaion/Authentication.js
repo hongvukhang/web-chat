@@ -64,7 +64,6 @@ export default function Authentication({
               onChange={(e) => {
                 avatar([...e.target.files]);
               }}
-              required
             />
             <label htmlFor="avatar">Upload Avatar</label>
           </div>

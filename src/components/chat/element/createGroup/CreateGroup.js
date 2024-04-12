@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { FaArrowRight } from "react-icons/fa";
 import classes from "./CreateGroup.module.css";
 import { FaPlus } from "react-icons/fa6";
@@ -6,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { display } from "../../../../redux/showAlertSlice";
+import { isShow } from "../../../../redux/showCreateGroup";
 export default function CreateGroup({ close }) {
   const [user, setUser] = useState([]);
   const [data, setData] = useState([]);
@@ -54,12 +56,12 @@ export default function CreateGroup({ close }) {
     }
     axios.post(`/chat/send-message`, { userId: ids }).then((res) => {
       navigate(`/chat/${res.data}`);
-      close();
+      dispatch(isShow(false));
     });
   };
-  return (
+  return ReactDOM.createPortal(
     <main className={classes.container}>
-      <FaArrowRight onClick={() => close()} />
+      <FaArrowRight onClick={() => dispatch(isShow(false))} />
       <ul className={classes["list-group"]}>
         {group.map((element) => {
           return (
@@ -97,6 +99,7 @@ export default function CreateGroup({ close }) {
       <button onClick={createGroup} className={classes.btn}>
         Create Group
       </button>
-    </main>
+    </main>,
+    document.querySelector("body")
   );
 }

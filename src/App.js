@@ -18,13 +18,15 @@ import Login from "./components/authenticaion/Login";
 import Register from "./components/authenticaion/Register";
 import ForgotPassword from "./components/authenticaion/forgotPassword/ForgotPassword";
 import Friends from "./components/friends/Friends";
-
+import CreateGroup from "./components/chat/element/createGroup/CreateGroup";
 import { useSelector, useDispatch } from "react-redux";
 import { display } from "./redux/showAlertSlice";
 function App() {
   const [cookies] = useCookies(["auth"]);
 
   const alert = useSelector((state) => state.show_alert);
+  const isGroup = useSelector((state) => state.show_group);
+
   const dispatch = useDispatch();
 
   axios.defaults.baseURL = "http://localhost:5000/";
@@ -77,6 +79,7 @@ function App() {
             close={alert.close}
           />
         )}
+        {isGroup.isShow && <CreateGroup />}
         <Routes>
           <Route
             path="/"
@@ -99,10 +102,6 @@ function App() {
             path="/friends"
             element={<Friends socket={socketIO} notify={notify} />}
           />
-          {/* <Route
-            path="/friends/:filter"
-            element={<Friends socket={socketIO} notify={notify} />}
-          /> */}
         </Routes>
       </BrowserRouter>
     </>

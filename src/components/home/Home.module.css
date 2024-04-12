@@ -212,9 +212,24 @@ body {
   color: #ffffffd9;
   font-family: "Roboto", sans-serif;
 }
-.list-chat_container > h1 {
+.list-chat_container h1 {
   margin: 25px;
   font-style: italic;
+}
+.list-title {
+  max-height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 0 0;
+}
+.list-title button {
+  background-color: #4141fb;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
 .img-container {
   position: relative;
