@@ -36,8 +36,8 @@
   height: 35px;
   border: none;
   font-size: 18px;
-  background-color: rgb(52, 70, 78);
-  color: white;
+  background-color: rgb(52, 70, 78) !important;
+  color: white !important;
 }
 
 .username-input:focus + .username-title,
@@ -122,6 +122,10 @@
 .forgot {
   cursor: pointer;
   color: white;
+}
+input:-webkit-autofill {
+  background-color: rgb(52, 70, 78) !important;
+  color: white !important;
 }
 @media only screen and (min-width: 600px) {
   .container {

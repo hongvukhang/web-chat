@@ -84,7 +84,9 @@ export default function Search({ closeHandler, socket }) {
                 />
                 <h3>{user.userName}</h3>
               </div>
-              <IoMdPersonAdd onClick={() => addFriend(user.idUser)} />
+              {!user.isFriend && (
+                <IoMdPersonAdd onClick={() => addFriend(user.idUser)} />
+              )}
             </li>
           );
         })}

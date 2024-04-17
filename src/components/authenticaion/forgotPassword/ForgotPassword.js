@@ -305,7 +305,6 @@ export default function ForgotPassword() {
           close: { title: "close" },
         })
       );
-
       return false;
     }
     if (password.length < 8) {
@@ -360,6 +359,9 @@ export default function ForgotPassword() {
       <main className={classes.content}>
         {changePassword && (
           <IoIosArrowBack onClick={() => setChangePassword(false)} />
+        )}
+        {!changePassword && (
+          <IoIosArrowBack onClick={() => navigate("/login")} />
         )}
         <h2 className={classes.title}>Forgot Password</h2>
         {!changePassword && (
