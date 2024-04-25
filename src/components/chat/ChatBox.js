@@ -298,21 +298,7 @@ export default function ChatBox({ socket, message }) {
               <IoIosSend />
             </button>
           </div>
-          {isCreateGroup && <CreateGroup close={closeHandler} />}
         </main>
-        {isOptions && (
-          <div className={classes["create-group_container"]}>
-            <span>Create Group</span>
-            <button
-              onClick={() => {
-                setIsOptions((is) => !is);
-                setIsCreateGroup((is) => !is);
-              }}
-            >
-              Create +
-            </button>
-          </div>
-        )}
       </main>
     </main>
   );

@@ -256,4 +256,7 @@ img {
   .container-chatbox {
     width: 100%;
   }
+  .pick-emoji {
+    bottom: 11rem;
+  }
 }
